@@ -39,13 +39,13 @@ Coulomb counting is sensitive to measurement drift and inaccuracies over long pe
 Mathematical Equation for Calibration in Coulomb Counting
 Calibration in a Coulomb Counting system involves ensuring that the charge (capacity) measurements are accurate against the nominal and actual conditions of the battery. Here's a breakdown of the mathematical equations used for calibration:
 ________________________________________
-1. Nominal Capacity (C_nominal):
+ 1. Nominal Capacity (C_nominal):
 The nominal capacity of the battery is the manufacturer's rated value for the battery, given in milliampere-hours (mAh):
 Cnominal=Inominal⋅t
 Where:
 •	InominalI : Nominal discharge current (A or mA)
 •	t: Time to discharge the battery fully (hours)
-________________________________________
+
 2. Measured Capacity (C_measured):
 Measured capacity is calculated by integrating the current over time:
  
@@ -58,21 +58,20 @@ Numerically, this is often calculated in a discrete form as:
 Where:
 •	Iload(tk: Measured current at the kkk-th interval
 •	Δt: Time step (seconds)
-________________________________________
+
 3. Correction Factor (K):
 The correction factor compensates for inaccuracies due to system noise, temperature effects, or aging of the battery:
 K=Cnominal/Cmeasured
-________________________________________
 4. Calibrated Capacity:
 The calibrated capacity is updated using the correction factor:
 Ccalibrated=Cmeasured⋅K
-________________________________________
+=
 5. State of Charge (SoC):
 The State of Charge is expressed as the ratio of remaining capacity to the nominal or calibrated capacity:
 SoC=Cremaining/Ccalibrated×100%
 Here:
 •	Cremaining : The accumulated charge during operation.
-
+________________________________________
 
 Final SoC Calculation with Calibration
 After recalibration, the SoC can be calculated as follows:
@@ -98,7 +97,7 @@ The system collects real-time battery data using sensors connected to your batte
 •	Temperature (T): Environmental or battery temperature (optional but useful for modeling).
 •	Charging/Discharging State: Whether the battery is charging or discharging.
 This data is gathered during normal operation and logged continuously over time.
-________________________________________
+
 2. Data Preprocessing
 Before feeding the collected data into the ML model:
 •	Filtering: Removes noisy or spurious sensor readings.
@@ -107,7 +106,7 @@ o	Rate of voltage change (dV/dt)
 o	Cumulative charge consumed (∑I⋅Δt).
 o	Power (P=V×I).
 •	Normalization: Ensures data scales are consistent for training.
-________________________________________
+
 3. ML Model Training
 Using historical data, an ML model is trained to recognize patterns in battery behavior.
 •	Example Input-Output Relationship:
@@ -117,7 +116,7 @@ The model learns:
 •	How the battery’s voltage drops over time.
 •	How quickly charge is consumed at different currents.
 •	Nonlinear effects like aging, temperature dependencies, and variations between charging and discharging.
-________________________________________
+
 4. Prediction and Real-Time Estimation
 Once trained, the model is deployed on a microcontroller or edge device (like an ESP32). It predicts the SoC in real-time using live sensor data:
 1.	Input: Real-time voltage, current, and optional temperature data.
@@ -125,7 +124,7 @@ Once trained, the model is deployed on a microcontroller or edge device (like an
 o	SoC as a percentage (0%–100%).
 o	Recalibrated capacity (Cnominal ) if discrepancies arise.
 3.	Output: Accurate, real-time SoC and capacity readings.
-________________________________________
+
 5. Recalibration Over Time
 As batteries degrade, their capacity decreases. The ML system continuously adjusts predictions:
 •	Continuous Learning: With every charge/discharge cycle, the system updates its model using new data.
